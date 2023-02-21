@@ -1,0 +1,9 @@
+node_modules/
+
+/app/build/
+/app/public/
+/server/public/
+.vscode
+yarn-error.log
+yarn.lock
+package-lock.json
