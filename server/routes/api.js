@@ -1,11 +1,42 @@
-const { Router } = require('express')
-const router = Router()
-const authController = require('../controllers/AuthController')
+const express = require('express');
+const router = express.Router();
 
-router.get('/', (req, res) => {
-  res.send('Birds home page')
-})
+const authMiddleware = require('../middlewares/authMiddleware');
+const authController = require('../controllers/AuthController');
+const userController = require('../controllers/UserController');
 
-router.post('/register', authController.register)
+const loginValidation = require('../validation/login')
+const registrationValidation = require('../validation/registration')
+
+
+
+router.post(
+  '/register', 
+  registrationValidation, 
+  authController.register
+)
+
+router.post(
+  '/login',
+  loginValidation,
+  authController.login
+)
+
+router.post(
+  '/logout',
+  authController.logout
+)
+
+router.get(
+  '/users/me',
+  authMiddleware,
+  userController.getMe
+)
+
+router.put(
+  '/users/update',
+  authMiddleware,
+  userController.update
+)
 
 module.exports = router

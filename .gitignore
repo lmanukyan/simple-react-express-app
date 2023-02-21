@@ -1,8 +1,7 @@
 node_modules/
-
 /app/build/
 /app/public/
-/server/public/
+/server/uploads/*
 .vscode
 yarn-error.log
 yarn.lock
