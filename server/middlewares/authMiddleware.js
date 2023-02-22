@@ -4,7 +4,8 @@ const authMiddleware = function (req, res, next) {
     }
     res.status(401).send({
         success: false,
-        data: "Unauthorized"
+        data: "Unauthorized",
+        session: req.session
     })
 }
 

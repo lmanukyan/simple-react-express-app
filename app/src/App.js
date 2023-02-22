@@ -1,16 +1,20 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import AuthorizationPage from './pages/Authorization';
+import { useEffect } from 'react';
+import { RouterProvider } from 'react-router-dom';
+import { appRouter } from './router';
+import UserService from './services/user';
+
 import './App.css';
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <AuthorizationPage />,
-  },
-]);
-
 function App() {
-  return <RouterProvider router={router} />;
+  const loadProfile = async () => {
+    await UserService.getProfile();
+  }
+
+  useEffect(() => {
+    loadProfile();
+  }, []);
+
+  return <RouterProvider router={appRouter} />;
 }
 
 export default App;

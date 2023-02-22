@@ -16,7 +16,10 @@ class AuthController {
                 password: await passwordHash(req.body.password),
                 avatar: avatarUrl
             })
-            res.status(201).json({ success: true })
+
+            req.session.user = userResponse(user);
+
+            res.status(201).json({ success: true, data: req.session.user })
         } catch (e) {
             res.status(400).json({ success: false, data: e })
         }
@@ -30,7 +33,11 @@ class AuthController {
         if (! user) {
             return res.status(404).json({ 
                 success: false,
-                data: "User not found."
+                data: [
+                    {
+                        msg: 'User not found.'
+                    }
+                ]
             });
         }
 
@@ -39,13 +46,17 @@ class AuthController {
         if (! passwordCheck) {
             return res.status(400).json({ 
                 success: false,
-                data: "Wrong email or password."
+                data: [
+                    {
+                        msg: 'Wrong email or password.'
+                    }
+                ]
             });
         }
 
         req.session.user = userResponse(user);
     
-        res.status(200).json({ success: true, user: req.session.user })
+        res.status(200).json({ success: true, data: req.session.user })
     }
 
     async logout (req, res) {
