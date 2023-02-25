@@ -11,9 +11,11 @@ const registrationValidation = validationHandler([
         .withMessage('Please fill a valid email address.')
         .custom(value => {
             return userModel.findOne({ email: value })
-               .then(
-                    () => Promise.reject('An account with this email already exists.')
-                )
+               .then((res) => {
+                    if (res) {
+                        return Promise.reject('An account with this email already exists.')
+                    }
+                })
          }),
     body('birthdate')
         .isDate(),

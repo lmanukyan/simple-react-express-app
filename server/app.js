@@ -11,6 +11,7 @@ const routes = require('./routes');
 const app = express()
 
 dotenv.config();
+app.set('trust proxy', 1);
 app.use(cors());
 app.use(fileUpload()); 
 app.use(bodyParser.urlencoded({ extended: true })); 
@@ -23,7 +24,8 @@ app.use(
     saveUninitialized: true,
     cookie: {
       maxAge: 24 * 60 * 60 * 1000 * 7, //seven days
-      secure: false
+      secure: false,
+      sameSite: 'none',
     },
   })
 );

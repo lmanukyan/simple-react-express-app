@@ -19,9 +19,9 @@ class AuthController {
 
             req.session.user = userResponse(user);
 
-            res.status(201).json({ success: true, data: req.session.user })
+            res.status(201).send({ success: true, data: req.session.user })
         } catch (e) {
-            res.status(400).json({ success: false, data: e })
+            res.status(400).send({ success: false, data: e })
         }
     }
 
@@ -31,12 +31,10 @@ class AuthController {
         });
 
         if (! user) {
-            return res.status(404).json({ 
+            return res.status(404).send({ 
                 success: false,
                 data: [
-                    {
-                        msg: 'User not found.'
-                    }
+                    { msg: 'User not found.' }
                 ]
             });
         }
@@ -44,24 +42,22 @@ class AuthController {
         const passwordCheck = await passwordCompare(req.body.password, user.password);
 
         if (! passwordCheck) {
-            return res.status(400).json({ 
+            return res.status(400).send({ 
                 success: false,
                 data: [
-                    {
-                        msg: 'Wrong email or password.'
-                    }
+                    { msg: 'Wrong email or password.' }
                 ]
             });
         }
 
         req.session.user = userResponse(user);
     
-        res.status(200).json({ success: true, data: req.session.user })
+        res.status(200).send({ success: true, data: req.session.user })
     }
 
     async logout (req, res) {
         req.session.user = null;
-        res.status(200).json({ success: true })
+        res.status(200).send({ success: true })
     }
     
 }

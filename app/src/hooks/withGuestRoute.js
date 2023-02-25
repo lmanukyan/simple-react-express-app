@@ -6,7 +6,7 @@ const withGuestRoute = (Component) => {
     const user = useSelector((state) => state.user)
     
     if (user.data.id) {
-      return <Navigate to="/account" />;
+      return <Navigate to="/people" />;
     }
 
     return <Component {...props} />

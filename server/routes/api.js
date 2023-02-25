@@ -33,10 +33,16 @@ router.get(
   userController.getMe
 )
 
-router.put(
+router.post(
   '/users/update',
   authMiddleware,
   userController.update
+)
+
+router.get(
+  '/users/people',
+  authMiddleware,
+  userController.people
 )
 
 module.exports = router

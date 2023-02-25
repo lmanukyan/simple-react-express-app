@@ -1,8 +1,9 @@
 import axios from '../helpers/axios';
 import { store } from '../store';
 import { appRouter } from '../router';
-import { setUser } from '../store/userSlice';
+import { setUser, resetUser } from '../store/userSlice';
 import { toast } from 'react-toastify';
+
 
 class AuthService {
 
@@ -10,10 +11,10 @@ class AuthService {
     try {
       const { data: result } = await axios.post('register', data);
       if (result.success) {
-        store.dispatch(setUser(result.data))
-        toast.success('You have successfully registered.')
+        store.dispatch(setUser(result.data));
+        toast.success('You have successfully registered.');
       } else {
-        result.data.forEach(error => toast.error(error.msg))
+        result.data.forEach(error => toast.error(error.msg));
       }
     } catch (e) {
       console.log(e);
@@ -24,13 +25,29 @@ class AuthService {
     try {
       const { data: result } = await axios.post('login', data);
       if (result.success) {
-        toast.success('You have successfully logged in.')
-        store.dispatch(setUser(result.data))
+        toast.success('You have successfully logged in.');
+        store.dispatch(setUser(result.data));
         setTimeout(() => {
-          appRouter.navigate('/account')
-        }, 1500)
+          appRouter.navigate('/account');
+        }, 1500);
       } else {
-        result.data.forEach(error => toast.error(error.msg))
+        result.data.forEach(error => toast.error(error.msg));
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  async logout() {
+    try {
+      const { data: result } = await axios.post('logout');
+      if (result.success) {
+        store.dispatch(resetUser());
+        setTimeout(() => {
+          appRouter.navigate('/');
+        }, 1500);
+      } else {
+        result.data.forEach(error => toast.error(error.msg));
       }
     } catch (e) {
       console.log(e);

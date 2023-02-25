@@ -3,22 +3,28 @@ import * as yup from 'yup';
 import moment from 'moment';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import AuthService from '../../services/auth';
+import { getSelectedImageDataURI } from '../../helpers/utils';
 
 import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
 import Radio from '@mui/material/Radio';
+import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
+import Avatar from '@mui/material/Avatar';
 import FormLabel from '@mui/material/FormLabel';
 import TextField from '@mui/material/TextField';
+import IconButton from '@mui/material/IconButton';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
 import FormControlLabel from '@mui/material/FormControlLabel';
-
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 
-import AuthService from '../../services/auth'
+
 
 const schema = yup.object({
   name: yup.string().required(),
@@ -40,6 +46,8 @@ const schema = yup.object({
     })
     .required(),
 }).required();
+
+
 
 function RegisterForm() {
   const [ birthDate, setBirthDate ] = useState(null);
@@ -63,6 +71,15 @@ function RegisterForm() {
     }
 
     await AuthService.register(formdata);
+  };
+
+  const setAvatarData = async (e) => {
+    if (e.target.files && e.target.files[0]) {
+      const dataUri = await getSelectedImageDataURI(e);
+      setAvatar(dataUri);
+    } else {
+      setAvatar(null);
+    }
   };
 
   return (
@@ -164,16 +181,23 @@ function RegisterForm() {
 
       <FormControl variant="standard">
         <FormLabel>Avatar</FormLabel>
-        <Button component="label" variant="text">
-          {avatar ? avatar.name : 'Select'}
-          <input 
-            hidden
-            accept="image/*"
-            type="file"
-            onInput={(e) => setAvatar(e ? e.target.files[0] : null)}
-            {...register('avatar')}
-          />
-        </Button>
+        <Stack direction="row" spacing={2} alignItems="center" justifyContent="center">
+          <IconButton component="label">
+            <AddPhotoAlternateIcon fontSize="large" />
+            <input 
+              hidden
+              accept="image/*"
+              type="file"
+              onInput={setAvatarData}
+              {...register('avatar')}
+            />
+          </IconButton>
+          <Paper>
+          { avatar && 
+            <Avatar alt="Avatar" src={avatar} />
+          }
+          </Paper>
+        </Stack>
         <FormHelperText error={Boolean(errors?.avatar)}>{errors?.avatar?.message}</FormHelperText>
       </FormControl>
 

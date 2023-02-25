@@ -21,7 +21,7 @@ class UserController {
             name: req.body.name
         }
 
-        if (req.files.avatar) {
+        if (req.files?.avatar) {
             const { avatarUrl, avatarPath } = getUploadFileData(req.files.avatar);
             userData.avatar = avatarUrl;
             await req.files.avatar.mv(avatarPath);
@@ -40,7 +40,12 @@ class UserController {
 
         req.session.user = userResponse(updatedUser);
         
-        return res.send({ success: true });
+        return res.send({ success: true, data: req.session.user });
+    }
+
+    async people(req, res) {
+        const people = await userModel.find();
+        return res.send({ success: true, data: people });
     }
     
 }
