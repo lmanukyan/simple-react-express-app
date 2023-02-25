@@ -2,13 +2,14 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import AuthService from '../../services/auth';
+import Menu from '@mui/material/Menu';
 import Avatar from '@mui/material/Avatar';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
+import Container from '@mui/material/Container';
 
 function Header() {
 
@@ -30,60 +31,72 @@ function Header() {
 
   return (
       <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            BasicsTech
-          </Typography>
-          {user.id && (
-            <div>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="inherit"
-              >
-                <Avatar src={`http://localhost:4000${user.avatar}`} alt="" />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                <MenuItem 
-                  onClick={handleClose}
-                  component={Link}
-                  to="/people"
+        <Container maxWidth="xl">
+          <Toolbar style={{ padding: 0, justifyContent: 'space-between' }} variant="dense">
+            <Typography 
+              variant="h6" 
+              sx={{ textDecoration: 'none', color: 'white' }}
+              component={Link}
+              to="/" 
+            >
+              BasicsTech
+            </Typography>
+            {user.id && (
+              <div>
+                <IconButton
+                  size="large"
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  onClick={handleMenu}
+                  color="inherit"
+                  sx={{ p: 1 }}
                 >
-                  People
-                </MenuItem>
-                <MenuItem 
-                  onClick={handleClose}
-                  component={Link}
-                  to="/account"
+                  <Avatar 
+                    src={user.avatar} 
+                    sx={{ width: 35, height: 35 }}
+                    alt="Avatar" 
+                  />
+                </IconButton>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
                 >
-                  Account
-                </MenuItem>
-                <MenuItem 
-                  onClick={handleLogout}
-                >
-                  Logout
-                </MenuItem>
-              </Menu>
-            </div>
-          )}
-        </Toolbar>
+                  <MenuItem 
+                    onClick={handleClose}
+                    component={Link}
+                    to="/people"
+                  >
+                    People
+                  </MenuItem>
+                  <MenuItem 
+                    onClick={handleClose}
+                    component={Link}
+                    to="/account"
+                  >
+                    Account
+                  </MenuItem>
+                  <MenuItem 
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </MenuItem>
+                </Menu>
+              </div>
+            )}
+          </Toolbar>
+        </Container>
       </AppBar>
   );
 }

@@ -2,7 +2,7 @@ import axios from 'axios';
 import { resetStoredUser } from './utils'
 
 const instance = axios.create({
-  baseURL: 'http://localhost:4000/api/',
+  baseURL: process.env.REACT_APP_API_URL,
   timeout: 1000,
   validateStatus: function (status) {
     return status < 500;

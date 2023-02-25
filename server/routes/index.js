@@ -1,10 +1,10 @@
-const { Router } = require('express')
-const router = Router()
+const { Router } = require("express");
+const router = Router();
 
-const web = require('./web')
-const api = require('./api')
+const web = require("./web");
+const api = require("./api");
 
-router.use('/', web);
-router.use('/api', api);
+router.use("/", web);
+router.use("/api", api);
 
-module.exports = router
+module.exports = router;

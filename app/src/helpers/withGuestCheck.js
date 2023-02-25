@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
-const withGuestRoute = (Component) => {
+const withGuestCheck = (Component) => {
   return (props) => {
     const user = useSelector((state) => state.user)
     
@@ -13,4 +13,4 @@ const withGuestRoute = (Component) => {
   };
 };
 
-export default withGuestRoute;
+export default withGuestCheck;

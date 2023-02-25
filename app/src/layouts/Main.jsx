@@ -7,7 +7,7 @@ function MainLayout ({ children }) {
     <>
       <Header />
       <Notifications />
-      <main>
+      <main className="main">
         {children}
       </main>
       <Footer />

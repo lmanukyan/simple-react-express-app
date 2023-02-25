@@ -30,6 +30,20 @@ class UserService {
     }
   }
 
+  async getPeople(data) {
+    try {
+      const { data: result } = await axios.get('users/people', { params: data });
+      if (result.success) {
+        return result.data;
+      } else {
+        result.data.forEach(error => toast.error(error.msg));
+      }
+      return false;
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
 }
 
 const userService = new UserService();

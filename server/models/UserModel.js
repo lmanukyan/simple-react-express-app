@@ -17,7 +17,7 @@ const UserSchema = new Schema({
   },
   gender: {
     type: String,
-    enum: ['male', 'female'],
+    enum: ["male", "female"],
     required: true,
   },
   avatar: {
@@ -27,7 +27,7 @@ const UserSchema = new Schema({
   password: {
     type: String,
     required: true,
-  }
+  },
 });
 
 module.exports = mongoose.model("users", UserSchema);

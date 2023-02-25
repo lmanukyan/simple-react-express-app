@@ -1,28 +1,26 @@
+import moment from 'moment';
+import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-function PeopleCard() {
+function PeopleCard({ item }) {
   return (
-    <Card>
-      <CardMedia
-        sx={{ height: 140 }}
-        image="https://mui.com/static/images/cards/paella.jpg"
-        title="green iguana"
-      />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          Lizard
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
-        </Typography>
-      </CardContent>
-    </Card>
+    <Grid item xs={12} sm={6} md={4} lg={3}>
+      <Card>
+        <img
+          style={{ width: '100%', maxHeight: 300, objectFit: 'cover' }}
+          src={item.avatar}
+          alt="People"
+          loading="lazy"
+        />
+        <CardContent style={{ paddingBottom: 16 }}>
+          <Typography gutterBottom variant="h5" component="div" sx={{ m: 0 }}>
+            {item.name}, {moment().diff(item.birthdate, 'years')}
+          </Typography>
+        </CardContent>
+      </Card>
+    </Grid>
   );
 }
 

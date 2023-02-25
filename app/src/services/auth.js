@@ -28,7 +28,7 @@ class AuthService {
         toast.success('You have successfully logged in.');
         store.dispatch(setUser(result.data));
         setTimeout(() => {
-          appRouter.navigate('/account');
+          appRouter.navigate('/people');
         }, 1500);
       } else {
         result.data.forEach(error => toast.error(error.msg));

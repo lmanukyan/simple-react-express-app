@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
-const withPrivateRoute = (Component) => {
+const withAuthCheck = (Component) => {
   return (props) => {
     const user = useSelector((state) => state.user)
 
@@ -13,4 +13,4 @@ const withPrivateRoute = (Component) => {
   };
 };
 
-export default withPrivateRoute;
+export default withAuthCheck;

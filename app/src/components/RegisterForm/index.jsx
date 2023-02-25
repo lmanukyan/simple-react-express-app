@@ -132,6 +132,7 @@ function RegisterForm() {
                 <DesktopDatePicker
                     label="Date of birth"
                     inputFormat="DD.MM.YYYY"
+                    maxDate={new Date()}
                     onChange={(event) => {  onChange(event); setBirthDate(event); }}
                     renderInput={(params) =>
                     <TextField
