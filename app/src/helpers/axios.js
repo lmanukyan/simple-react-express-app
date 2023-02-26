@@ -1,5 +1,7 @@
 import axios from 'axios';
-import { resetStoredUser } from './utils'
+import { store } from '../store';
+import { appRouter } from '../router';
+import { resetUser } from '../store/userSlice';
 
 const instance = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
@@ -11,7 +13,8 @@ const instance = axios.create({
 
 instance.interceptors.response.use(function (response) {
   if (response.status === 401) {
-    resetStoredUser();
+    store.dispatch(resetUser());
+    appRouter.navigate('/');
   }
   return response;
 });

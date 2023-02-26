@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { storeUser } from '../helpers/utils';
+import { storeUser, resetStoredUser } from '../helpers/utils';
 
 const initData = () => ({
   id: null,
@@ -19,7 +19,7 @@ const userSlice = createSlice({
     },
     resetUser(state) {
       state.data = initData();
-      storeUser(initData());
+      resetStoredUser();
     },
   },
 });

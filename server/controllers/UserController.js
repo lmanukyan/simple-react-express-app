@@ -15,27 +15,32 @@ class UserController {
   async update(req, res) {
     const userId = req.session.user.id;
     const user = await userModel.findById(userId);
-
-    const userData = {
-      name: req.body.name,
-    };
+    const userData = {};
 
     if (req.files?.avatar) {
-      const { avatarUrl, avatarPath } = getUploadFileData(req.files.avatar);
+      const { avatarUrl, avatarPath } = getUploadFileData(req.files.avatar.name);
       userData.avatar = avatarUrl;
       await req.files.avatar.mv(avatarPath);
-      fs.unlink(getUploadedFilePath(user.avatar), (e) => console.log(e));
+      if (user.avatar) {
+        fs.unlink(getUploadedFilePath(user.avatar), (e) => console.log(e));
+      }
     }
 
     if (req.body.password) {
       userData.password = await passwordHash(req.body.password);
     }
+    
+    if (req.body.name) {
+      userData.name = req.body.name;
+    }
 
     const updatedUser = await userModel.findOneAndUpdate(
-      { id: userId },
+      { _id: userId },
       userData,
       { returnDocument: "after" }
     );
+
+    console.log(updatedUser)
 
     req.session.user = userResponse(updatedUser);
     req.session.save();

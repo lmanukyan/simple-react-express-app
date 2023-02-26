@@ -42,6 +42,11 @@ function UpdateUserForm() {
   });
 
   const onSubmit = async (data) => {
+
+    if(data.name === '' && data.password === '' && data.avatar.length === 0) {
+      return;
+    }
+
     const formdata = new FormData();
 
     for(let field in data) {
@@ -71,7 +76,7 @@ function UpdateUserForm() {
     <Box
       component="form"
       sx={{
-        '& > :not(style)': { m: 2, width: '100%' },
+        '& > :not(style)': { my: 2, width: '100%' },
       }}
       noValidate
       autoComplete="off"

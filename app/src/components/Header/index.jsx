@@ -53,7 +53,7 @@ function Header() {
                   sx={{ p: 1 }}
                 >
                   <Avatar 
-                    src={user.avatar} 
+                    src={user.avatar}
                     sx={{ width: 35, height: 35 }}
                     alt="Avatar" 
                   />

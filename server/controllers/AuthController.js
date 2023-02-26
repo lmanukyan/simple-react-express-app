@@ -5,7 +5,7 @@ const { getUploadFileData } = require("../helpers/upload");
 
 class AuthController {
   async register(req, res) {
-    const { avatarUrl, avatarPath } = getUploadFileData(req.files.avatar);
+    const { avatarUrl, avatarPath } = getUploadFileData(req.files.avatar.name);
 
     try {
       await req.files.avatar.mv(avatarPath);

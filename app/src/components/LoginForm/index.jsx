@@ -31,7 +31,7 @@ function LoginForm() {
     <Box
       component="form"
       sx={{
-        '& > :not(style)': { m: 2, width: '100%' },
+        '& > :not(style)': { my: 2, width: '100%' },
       }}
       noValidate
       autoComplete="off"
