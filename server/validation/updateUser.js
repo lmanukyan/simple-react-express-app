@@ -7,7 +7,7 @@ const updateUserValidation = validationHandler([
     .isEmpty()
     .withMessage("The name field cannot be empty."),
   check("avatar")
-    .custom(({ req }) =>
+    .custom((value, { req }) =>
       ["image/jpeg", "image/jpg", "image/png"].includes(
         req.files.avatar.mimetype
       )
