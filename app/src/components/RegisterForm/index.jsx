@@ -24,8 +24,6 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 
-
-
 const schema = yup.object({
   name: yup.string().required(),
   email: yup.string().email().required(),
